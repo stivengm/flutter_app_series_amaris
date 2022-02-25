@@ -55,6 +55,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
         children: [
           _popular(),
           const Divider(color: AppStyle.greyColor),
+          _header('Recommendations'),
           homeBloc.state.recommendations != null ? ListView.builder(
             shrinkWrap: true,
             physics: const ScrollPhysics(),
@@ -79,16 +80,6 @@ class _PageViewWidgetState extends State<PageViewWidget> {
       fontSize: 22.0,
       fontWeight: FontWeight.bold,
       textAlign: TextAlign.left
-    );
-  }
-
-  Widget _recomendations() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _header('Recommendations'),
-        recommendations(),
-      ],
     );
   }
 
