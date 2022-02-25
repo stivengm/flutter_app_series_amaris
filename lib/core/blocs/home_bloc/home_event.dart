@@ -18,8 +18,8 @@ class HandleCurrentIndex extends HomeEvent {
 }
 
 class GetMovies extends HomeEvent {
-  final PopularesModel? movies;
-  GetMovies(this.movies);
+  final PopularesModel? populares;
+  GetMovies(this.populares);
 }
 
 class GetRecommendations extends HomeEvent {

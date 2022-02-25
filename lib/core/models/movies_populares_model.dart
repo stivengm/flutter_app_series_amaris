@@ -15,7 +15,7 @@ class PopularesModel {
     });
 
     int? page;
-    List<MovieModel>? results;
+    List<SeriesModel>? results;
     int? totalPages;
     int? totalResults;
 
@@ -25,7 +25,7 @@ class PopularesModel {
 
     factory PopularesModel.fromMap(Map<String, dynamic> json) => PopularesModel(
         page: json["page"],
-        results: List<MovieModel>.from(json["results"].map((x) => MovieModel.fromMap(x))),
+        results: List<SeriesModel>.from(json["results"].map((x) => SeriesModel.fromMap(x))),
         totalPages: json["total_pages"],
         totalResults: json["total_results"],
     );

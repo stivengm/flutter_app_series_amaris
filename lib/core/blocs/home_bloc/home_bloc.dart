@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_series_amaris/core/models/movie_model.dart';
@@ -19,7 +18,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
 
     on<GetMovies>((event, emit) {
-      emit(state.copyWith(movies: event.movies));
+      emit(state.copyWith(populares: event.populares));
     });
 
     on<GetRecommendations>((event, emit) {
@@ -34,30 +33,30 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   getMovies() async {
-    add( ChangeLoading(true) );
-    var url = Uri.https(state.baseUrl!, '3/movie/popular', {
+    // add( ChangeLoading(true) );
+    var url = Uri.https(state.baseUrl!, '3/tv/popular', {
       'api_key': state.apiKey,
       'language': state.language,
       'page': '1'
     });
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      add( ChangeLoading(false) );
+      // add( ChangeLoading(false) );
       final PopularesModel movies = PopularesModel.fromJson(response.body);
       add( GetMovies(movies) );
     }
   }
 
   getRecomendations() async {
-    add( ChangeLoading(true) );
-    var url = Uri.https(state.baseUrl!, '/3/movie/top_rated', {
+    // add( ChangeLoading(true) );
+    var url = Uri.https(state.baseUrl!, '/3/tv/top_rated', {
       'api_key': state.apiKey,
       'language': state.language,
       'page': '1'
     });
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      add( ChangeLoading(false) );
+      // add( ChangeLoading(false) );
       final PopularesModel recommendations = PopularesModel.fromJson(response.body);
       add( GetRecommendations(recommendations));
     }

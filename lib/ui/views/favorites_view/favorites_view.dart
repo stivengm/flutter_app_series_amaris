@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_series_amaris/core/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter_app_series_amaris/ui/app_style.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/primary_button.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/text_app_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FavoriteView extends StatefulWidget {
@@ -14,22 +16,19 @@ class FavoriteView extends StatefulWidget {
 class _FavoriteViewState extends State<FavoriteView> {
   @override
   Widget build(BuildContext context) {
+    final homeBloc = BlocProvider.of<HomeBloc>(context);
     return Container(
       decoration: const BoxDecoration(
         color: AppStyle.darkBackground,
       ),
-      child: SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+      child: homeBloc.state.favorite != null ? ListView.builder(
         scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-          child: Column(
-            children: [
-              _item(),
-              const Divider(color: AppStyle.greyColor,)
-            ],
-          ),
-        ),
-      ),
+        itemCount: homeBloc.state.favorite!.length,
+        itemBuilder: (context, index) {
+          return _item();
+        },
+      ) : const TextApp(text: 'Not found favorites.', color: AppStyle.whiteColor,),
     );
   }
 
@@ -60,7 +59,6 @@ class _FavoriteViewState extends State<FavoriteView> {
             ],
           ),
         ),
-        
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),

@@ -7,6 +7,7 @@ import 'package:flutter_app_series_amaris/ui/views/recient_view/recient_view.dar
 import 'package:flutter_app_series_amaris/ui/widgets/primary_button.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/text_app_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class PageViewWidget extends StatefulWidget {
@@ -52,7 +53,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
           children: [
             _popular(),
             const Divider(color: AppStyle.greyColor),
-            _recomendations()
+            _recomendations(),
           ],
         ),
       ),
@@ -124,8 +125,29 @@ class _PageViewWidgetState extends State<PageViewWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  TextApp(text: '${movie.results![index].title}', color: AppStyle.whiteColor),
+                  TextApp(text: '${movie.results![index].name}', color: AppStyle.whiteColor),
+                  RatingStars(
+                    value: movie.results![index].voteAverage!,
+                    starBuilder: (index, color) => Icon(
+                      MdiIcons.star,
+                      color: color,
+                      size: 15.0,
+                    ),
+                    starCount: 5,
+                    starSize: 15,
+                    maxValue: 10,
+                    starSpacing: 0,
+                    maxValueVisibility: true,
+                    valueLabelVisibility: false,
+                    animationDuration: const Duration(milliseconds: 1000),
+                    valueLabelPadding: const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
+                    valueLabelMargin: const EdgeInsets.only(right: 8),
+                    starOffColor: const Color(0xffe7e8ea),
+                    starColor: AppStyle.greyColor,
+                  ),
+                  TextApp(text: 'IMDb: ${movie.results![index].voteAverage}', color: AppStyle.greyColor,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -142,19 +164,6 @@ class _PageViewWidgetState extends State<PageViewWidget> {
                       )
                     ],
                   ),
-                  // Expanded(
-                  //   child: Row(
-                  //     children: [
-                        
-                  //       IconButton(
-                  //         icon: Icon(
-                  //           MdiIcons.heart
-                  //         ),
-                  //         onPressed: () {},
-                  //       )
-                  //     ],
-                  //   ),
-                  // )
                 ],
               ),
             ),
@@ -172,15 +181,15 @@ class _PageViewWidgetState extends State<PageViewWidget> {
       children: [
         _header('Popular'),
         const SizedBox(height: 15.0),
-        homeBloc.state.movies != null ?
+        homeBloc.state.populares != null ?
         Container(
           // width: double.infinity,
           height: 300.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: homeBloc.state.movies!.results!.length,
+            itemCount: homeBloc.state.populares!.results!.length,
             itemBuilder: (context, index) {
-              return _itemPopular(homeBloc.state.movies!, index);
+              return _itemPopular(homeBloc.state.populares!, index);
             },
           ),
         ) : const SizedBox(),
@@ -205,21 +214,44 @@ class _PageViewWidgetState extends State<PageViewWidget> {
         width: 120.0,
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               height: 178.0,
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage('https://image.tmdb.org/t/p/w500/${movie.results![index].posterPath}'),
-                      fit: BoxFit.contain),
-                  borderRadius: BorderRadius.circular(8.0)),
+                image: DecorationImage(
+                  image: NetworkImage('https://image.tmdb.org/t/p/w500/${movie.results![index].posterPath}'),
+                  fit: BoxFit.contain
+                ),
+                borderRadius: BorderRadius.circular(8.0)
+              ),
             ),
             const SizedBox(height: 5.0),
             TextApp(
-              text: movie.results![index].title!,
+              text: movie.results![index].name!,
               fontSize: 17.0,
-              color: AppStyle.whiteColor,
-            )
+              color: AppStyle.greyColor,
+            ),
+            const SizedBox(height: 5.0),
+            RatingStars(
+              value: movie.results![index].voteAverage!,
+              starBuilder: (index, color) => Icon(
+                MdiIcons.star,
+                color: color,
+                size: 15.0,
+              ),
+              starCount: 5,
+              starSize: 15,
+              maxValue: 10,
+              starSpacing: 0,
+              maxValueVisibility: true,
+              valueLabelVisibility: false,
+              animationDuration: const Duration(milliseconds: 1000),
+              valueLabelPadding: const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
+              valueLabelMargin: const EdgeInsets.only(right: 8),
+              starOffColor: const Color(0xffe7e8ea),
+              starColor: AppStyle.greyColor,
+            ),
           ],
         ),
       ),

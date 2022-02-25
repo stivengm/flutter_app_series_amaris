@@ -172,35 +172,9 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ],
                   ),
-                  // Container(
-                  //   width: _media.width * .4,
-                  //   height: _media.height * .5,
-                  //   child: Column(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       Column(
-                  //         children: [
-                  //           PrimaryButton(text: 'Sign up', onPressed: () { },),
-                  //           const SizedBox(height: 10.0),
-                  //           SecundaryButton(text: 'Log in', onPressed: () {
-                  //             final loginBloc = BlocProvider.of<LoginBloc>(context);
-                  //             loginBloc.add( OpenLogin(true) );
-                  //           }),
-                  //           const SizedBox(height: 20.0),
-                  //           const Text("Forgot password?", style: TextStyle( color: AppStyle.whiteColor, decoration: TextDecoration.underline )),
-                  //         ],
-                  //       ),
-                  //       const SizedBox() 
-                  //     ],
-                  //   ),
-                  // ),
                 ],
               ));
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Text("C"),
-        onPressed: () => validAnimation(),
       ),
     );
   }
