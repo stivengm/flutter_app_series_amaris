@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_series_amaris/core/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter_app_series_amaris/ui/app_style.dart';
+import 'package:flutter_app_series_amaris/ui/views/review_serie_view/review_serie_view_store.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/primary_button.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/text_app_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,7 +116,11 @@ class _SerieViewState extends State<SerieView> {
                           const SizedBox(height: 15.0),
                           SizedBox(
                             width: _media.width * .4,
-                            child: const PrimaryButton(text: 'Watch Now', color: AppStyle.darkBackground,),
+                            child: PrimaryButton(text: 'Watch Now', color: AppStyle.darkBackground, onPressed: () {
+                              final _store = StoreReviewSerieView();
+                              _store.movieTv = homeBloc.state.populares!.results![index];
+                              Navigator.pushNamed(context, 'review_serie');
+                            }),
                           ),
                         ],
                       );

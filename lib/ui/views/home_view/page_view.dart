@@ -36,8 +36,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
             const FavoriteView(),
             const RecientView(),
             Container(
-              color: Colors.red,
-              child: const Text("Holaaaa"),
+              color: AppStyle.darkBackground,
             ),
           ],
         );
