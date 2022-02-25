@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_series_amaris/core/blocs/home_bloc/home_bloc.dart';
+import 'package:flutter_app_series_amaris/core/models/movie_model.dart';
 import 'package:flutter_app_series_amaris/core/models/movies_populares_model.dart';
 import 'package:flutter_app_series_amaris/ui/app_style.dart';
 import 'package:flutter_app_series_amaris/ui/views/favorites_view/favorites_view.dart';
+import 'package:flutter_app_series_amaris/ui/views/home_view/home_view_store.dart';
 import 'package:flutter_app_series_amaris/ui/views/recient_view/recient_view.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/primary_button.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/text_app_widget.dart';
@@ -19,7 +21,7 @@ class PageViewWidget extends StatefulWidget {
 }
 
 class _PageViewWidgetState extends State<PageViewWidget> {
-
+  final _store = StoreHomeView();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
@@ -160,7 +162,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
                           MdiIcons.heartOutline
                         ),
                         color: AppStyle.greyColor,
-                        onPressed: () {},
+                        onPressed: () => addFavorites(movie.results![index]),
                       )
                     ],
                   ),
@@ -171,6 +173,11 @@ class _PageViewWidgetState extends State<PageViewWidget> {
         ],
       ),
     );
+  }
+
+  addFavorites(SeriesModel? movieTv) {
+    _store.favorites!.add(movieTv!);
+    setState(() { });
   }
 
   Widget _popular() {

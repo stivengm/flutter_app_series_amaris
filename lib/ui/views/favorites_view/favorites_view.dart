@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_series_amaris/core/blocs/home_bloc/home_bloc.dart';
+import 'package:flutter_app_series_amaris/core/models/movie_model.dart';
 import 'package:flutter_app_series_amaris/ui/app_style.dart';
+import 'package:flutter_app_series_amaris/ui/views/home_view/home_view_store.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/primary_button.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/text_app_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +16,7 @@ class FavoriteView extends StatefulWidget {
 }
 
 class _FavoriteViewState extends State<FavoriteView> {
+  final _store = StoreHomeView();
   @override
   Widget build(BuildContext context) {
     final homeBloc = BlocProvider.of<HomeBloc>(context);
@@ -22,17 +25,17 @@ class _FavoriteViewState extends State<FavoriteView> {
         color: AppStyle.darkBackground,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-      child: homeBloc.state.favorite != null ? ListView.builder(
+      child: _store.favorites!.isNotEmpty ? ListView.builder(
         scrollDirection: Axis.vertical,
-        itemCount: homeBloc.state.favorite!.length,
+        itemCount: _store.favorites!.length,
         itemBuilder: (context, index) {
-          return _item();
+          return _item(_store.favorites![index], index);
         },
       ) : const TextApp(text: 'Not found favorites.', color: AppStyle.whiteColor,),
     );
   }
 
-  Widget _item() {
+  Widget _item(SeriesModel? movieTv, int index) {
     Size _media = MediaQuery.of(context).size;
     return Row(
       children: [
@@ -48,8 +51,8 @@ class _FavoriteViewState extends State<FavoriteView> {
                   width: 130.0,
                   height: 180.0,
                   decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: AssetImage("assets/theWitcher.jpg"),
+                    image: DecorationImage(
+                      image: NetworkImage('https://image.tmdb.org/t/p/w500/${movieTv!.posterPath}'),
                       fit: BoxFit.cover
                     ),
                     borderRadius: BorderRadius.circular(8.0)
@@ -65,11 +68,11 @@ class _FavoriteViewState extends State<FavoriteView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TextApp(text: 'The Witcher', color: AppStyle.whiteColor, fontSize: 20.0,),
+                TextApp(text: '${movieTv.name}', color: AppStyle.whiteColor, fontSize: 20.0,),
                 const SizedBox(height: 5.0),
                 const TextApp(text: 'Stars', color: AppStyle.whiteColor, fontSize: 13.0,),
                 const SizedBox(height: 5.0),
-                const TextApp(text: 'IMDb: 8,4', color: AppStyle.whiteColor, fontSize: 13.0,),
+                TextApp(text: 'IMDb: ${movieTv.voteAverage}', color: AppStyle.whiteColor, fontSize: 13.0,),
                 const SizedBox(height: 15.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -84,7 +87,10 @@ class _FavoriteViewState extends State<FavoriteView> {
                         MdiIcons.heart,
                         color: AppStyle.primaryColor.withOpacity(.4),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        _store.favorites!.removeAt(index);
+                        setState(() { });
+                      },
                     )
                   ],
                 )
