@@ -41,6 +41,7 @@ dependencies:
   http: ^0.13.4
   material_design_icons_flutter: ^5.0.6595
   sqflite: ^2.0.2
+  flutter_rating_stars: ^1.0.3+4
   
 
 dev_dependencies:

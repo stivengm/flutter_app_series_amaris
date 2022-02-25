@@ -1,6 +1,7 @@
 # flutter_app_series_amaris
 
-A new Flutter project.
+Aplicación de Series y Películas en Flutter versión 2.10.1
+NOTA: Tener la versión actualizada para ejecutar el proyecto.
 
 ## Getting Started
 

@@ -29,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
               text: '${state.nameScreen}',
               color: AppStyle.greyColor,
             ),
+            centerTitle: true,
             backgroundColor: AppStyle.darkBackground,
             elevation: 0,
             actions: [
