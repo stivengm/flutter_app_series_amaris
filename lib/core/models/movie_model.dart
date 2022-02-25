@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_app_series_amaris/core/models/movies_populares_model.dart';
-
 class SeriesModel {
     SeriesModel({
         this.backdropPath,

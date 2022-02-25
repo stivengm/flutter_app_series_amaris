@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_series_amaris/core/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter_app_series_amaris/core/models/movie_model.dart';
 import 'package:flutter_app_series_amaris/ui/app_style.dart';
 import 'package:flutter_app_series_amaris/ui/views/home_view/home_view_store.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/primary_button.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/text_app_widget.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FavoriteView extends StatefulWidget {
@@ -19,7 +17,6 @@ class _FavoriteViewState extends State<FavoriteView> {
   final _store = StoreHomeView();
   @override
   Widget build(BuildContext context) {
-    final homeBloc = BlocProvider.of<HomeBloc>(context);
     return Container(
       decoration: const BoxDecoration(
         color: AppStyle.darkBackground,

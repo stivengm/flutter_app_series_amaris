@@ -40,16 +40,11 @@ class _SerieViewState extends State<SerieView> {
   }
 
   Widget _body () {
-    int index = 0;
     Size _media = MediaQuery.of(context).size;
     final homeBloc = BlocProvider.of<HomeBloc>(context);
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppStyle.darkBackground,
-        // image: DecorationImage(
-        //   image: NetworkImage('https://image.tmdb.org/t/p/w500/${image}'),
-        //   fit: BoxFit.cover
-        // ),
       ),
       child: Column(
         children: [
