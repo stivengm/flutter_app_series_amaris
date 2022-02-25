@@ -3,7 +3,7 @@ import 'package:flutter_app_series_amaris/core/blocs/login_bloc/login_bloc.dart'
 import 'package:flutter_app_series_amaris/ui/app_style.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/primary_button.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/secundary_button.dart';
-import 'package:flutter_app_series_amaris/ui/widgets/snackBar.dart';
+import 'package:flutter_app_series_amaris/ui/widgets/snack_bar.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/text_app_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
