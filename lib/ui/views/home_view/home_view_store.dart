@@ -1,8 +1,8 @@
 import 'package:flutter_app_series_amaris/core/models/movie_model.dart';
 
 class StoreHomeView {
-  String? saldo;
-  bool? verificar;
+  
+  bool? loading = false;
 
   List<SeriesModel>? favorites = [];
 

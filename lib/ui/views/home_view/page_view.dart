@@ -6,6 +6,7 @@ import 'package:flutter_app_series_amaris/ui/app_style.dart';
 import 'package:flutter_app_series_amaris/ui/views/favorites_view/favorites_view.dart';
 import 'package:flutter_app_series_amaris/ui/views/home_view/home_view_store.dart';
 import 'package:flutter_app_series_amaris/ui/views/recient_view/recient_view.dart';
+import 'package:flutter_app_series_amaris/ui/widgets/loagin_page.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/primary_button.dart';
 import 'package:flutter_app_series_amaris/ui/widgets/text_app_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +30,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
         return PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: widget.pageController,
+          scrollDirection: Axis.horizontal,
           children: [
             _body(),
             const FavoriteView(),
@@ -45,24 +47,29 @@ class _PageViewWidgetState extends State<PageViewWidget> {
 
   Widget _body() {
     final homeBloc = BlocProvider.of<HomeBloc>(context);
-    return homeBloc.state.loading != null ? SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        width: double.infinity,
-        decoration: const BoxDecoration(color: AppStyle.darkBackground),
-        child: Column(
-          children: [
-            _popular(),
-            const Divider(color: AppStyle.greyColor),
-            _recomendations(),
-          ],
-        ),
-      ),
-    ) : Container(
+    return homeBloc.state.populares != null ? Container(
+      width: double.infinity,
       decoration: const BoxDecoration(color: AppStyle.darkBackground),
-      child: const Center(child: CircularProgressIndicator()),
-    );
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: ListView(
+        children: [
+          _popular(),
+          const Divider(color: AppStyle.greyColor),
+          homeBloc.state.recommendations != null ? ListView.builder(
+            shrinkWrap: true,
+            physics: const ScrollPhysics(),
+            itemCount: homeBloc.state.recommendations!.results!.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  _itemRecommendations(homeBloc.state.recommendations!, index)
+                ],
+              );
+            }
+          ) : const LoadingPage(),
+        ],
+      ),
+    ) : const LoadingPage();
   }
 
   Widget _header(text) {
