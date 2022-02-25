@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_series_amaris/core/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter_app_series_amaris/core/blocs/login_bloc/login_bloc.dart';
+import 'package:flutter_app_series_amaris/core/blocs/review_serie/review_serie_bloc.dart';
 import 'package:flutter_app_series_amaris/core/paths/app_paths.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: <BlocProvider> [
         BlocProvider<LoginBloc>(create: ( _ ) => LoginBloc()),
-        BlocProvider<HomeBloc>(create: ( _ ) => HomeBloc())
+        BlocProvider<HomeBloc>(create: ( _ ) => HomeBloc()),
+        BlocProvider<ReviewSerieBloc>(create: ( _ ) => ReviewSerieBloc()),
       ],
       child: _materialApp(),
     );
